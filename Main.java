@@ -6,15 +6,7 @@ class Main implements ActionListener {
 
   private JFrame frame;
   private JPanel panel;
-  private JButton button11;
-  private JButton button12;
-  private JButton button13;
-  private JButton button21;
-  private JButton button22;
-  private JButton button23;
-  private JButton button31;
-  private JButton button32;
-  private JButton button33;
+  private JButton button11, button12, button13, button21, button22, button23, button31, button32,  button33;
   private JLabel winLabel;
   private JButton newGame;
 
@@ -28,12 +20,11 @@ class Main implements ActionListener {
     frame = new JFrame();
     panel = new JPanel();
     winLabel = new JLabel("               ", SwingConstants.CENTER);
+    
     winLabel.setFont(new Font("Sans-Serif", Font.PLAIN, 25));
     winLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
-
-    panel.setLayout(new GridLayout(3, 3));
-
     panel.setBorder(BorderFactory.createEmptyBorder(20, 30, 30, 30));
+    panel.setLayout(new GridLayout(3, 3));
 
     button11 = new JButton();
     button12 = new JButton();
@@ -110,32 +101,27 @@ class Main implements ActionListener {
   }
 
   private void CheckWin() {
-    if (
-      (fields[0].equals("X") && fields[1].equals("X") && fields[2].equals("X")) ||
-      (fields[3].equals("X") && fields[4].equals("X") && fields[5].equals("X")) ||
-      (fields[6].equals("X") && fields[7].equals("X") && fields[8].equals("X")) || 
-      (fields[0].equals("X") && fields[3].equals("X") && fields[6].equals("X")) ||
-      (fields[1].equals("X") && fields[4].equals("X") && fields[7].equals("X")) ||
-      (fields[2].equals("X") && fields[5].equals("X") && fields[8].equals("X")) ||
-      (fields[0].equals("X") && fields[4].equals("X") && fields[8].equals("X")) ||
-      (fields[2].equals("X") && fields[4].equals("X") && fields[6].equals("X"))) {
+    if (WinCheck("X")) {
       playerWon = "X";
     }
-    else if (
-      (fields[0].equals("O") && fields[1].equals("O") && fields[2].equals("O")) ||
-      (fields[3].equals("O") && fields[4].equals("O") && fields[5].equals("O")) ||
-      (fields[6].equals("O") && fields[7].equals("O") && fields[8].equals("O")) || 
-      (fields[0].equals("O") && fields[3].equals("O") && fields[6].equals("O")) ||
-      (fields[1].equals("O") && fields[4].equals("O") && fields[7].equals("O")) ||
-      (fields[2].equals("O") && fields[5].equals("O") && fields[8].equals("O")) ||
-      (fields[0].equals("O") && fields[4].equals("O") && fields[8].equals("O")) ||
-      (fields[2].equals("O") && fields[4].equals("O") && fields[6].equals("O"))) {
-      playerWon = "X";
+    else if (WinCheck("O")) {
+      playerWon = "O";
     }
     else if (fields[0] != "" && fields[1] != "" && fields[2] != "" && fields[3] != "" && fields[4] != "" && fields[5] != "" && fields[6] != "" && fields[7] != "" && fields[8] != "") {
       playerWon = "-";
     }
-    
+  }
+
+  private Boolean WinCheck(String player) {
+    return (
+      (fields[0].equals(player) && fields[1].equals(player) && fields[2].equals(player)) ||
+      (fields[3].equals(player) && fields[4].equals(player) && fields[5].equals(player)) ||
+      (fields[6].equals(player) && fields[7].equals(player) && fields[8].equals(player)) || 
+      (fields[0].equals(player) && fields[3].equals(player) && fields[6].equals(player)) ||
+      (fields[1].equals(player) && fields[4].equals(player) && fields[7].equals(player)) ||
+      (fields[2].equals(player) && fields[5].equals(player) && fields[8].equals(player)) ||
+      (fields[0].equals(player) && fields[4].equals(player) && fields[8].equals(player)) ||
+      (fields[2].equals(player) && fields[4].equals(player) && fields[6].equals(player)));
   }
 
   private void SetWinner() {
@@ -161,17 +147,12 @@ class Main implements ActionListener {
       button31.setText("");
       button32.setText("");
       button33.setText("");
-      fields[0] = "";
-      fields[1] = "";
-      fields[2] = "";
-      fields[3] = "";
-      fields[4] = "";
-      fields[5] = "";
-      fields[6] = "";
-      fields[7] = "";
-      fields[8] = "";
+      for (int i = 0; i < 9; i++) {
+        fields[i] = "";
+      }
       playerWon = "";
       winLabel.setText("           ");
+      userTurn = "X";
     }
   }
 
